@@ -54,10 +54,17 @@ app.put('/projects/:id', function(req, res) { // parametros de rota
 });
 
 app.delete('/projects/:id', function(req, res) {
-    return res.json([
-        'Projeto 2',
-        'Projeto 3'
-    ]);
+    const {id} = req.params;
+
+    const projectIndex = projects.findIndex((p) => p.id ===  id);
+
+    if(projectIndex < 0) {
+        return res.status(404).json({error: 'Project not found'});
+    };
+    
+    projects.splice(projectIndex, 1);
+
+    return res.status(204).send();
 });
 
 app.listen(port, () => console.log('Server started port ' + port));
