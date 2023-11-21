@@ -1,40 +1,56 @@
 const express = require('express');
+const {v4: uuidv4} = require("uuid");
 
 const app = express();
 const port = 3000;
 app.use(express.json());
 
-app.get('/projects', function(req, res) {
-    const {title, owner, page} = req.query //consulta de parametros
-    console.log(title, owner, page)
 
-    return res.json([
-        'Projeto 1', 
-        'Projeto 2'
-    ]);
+const projects = [];
+
+
+app.get('/projects', function(req, res) {
+    return res.json(projects);
 });
 
 app.post('/projects', function(req, res) {
-    const {name, owner} = req.body
-    console.log(name, owner)
+    const {name, owner} = req.body;
+    const project = {
+        id: uuidv4(),
+        name,
+        owner
+    };
 
-    return res.json([
-        'Projeto 1', 
-        'Projeto 2',
-        'Projeto 3'
-    ]);
+    projects.push(project);
+
+    return res.status(201).json(project);
+    
 });
 
 app.put('/projects/:id', function(req, res) { // parametros de rota
     const {id} = req.params
-    const {name, owner} = req.body
-    console.log(id, name, owner)
+    const {name, owner} = req.body;
+    
+    const projectIndex = projects.findIndex((p) => p.id ===  id);
+
+    if(projectIndex < 0) {
+        return res.status(404).json({error: 'Project not found'});
+    };
+    
+    if(!name || !owner) {
+        return res.status(400).json({error: 'Name and owner are required'});
+    };
+
+    const project = {
+        id,
+        name,
+        owner
+    };
+
+    projects[projectIndex] = project;
+
   
-    return res.json([
-        'Projeto 4', 
-        'Projeto 2',
-        'Projeto 3'
-    ]);
+    return res.status(200).json(project);
 });
 
 app.delete('/projects/:id', function(req, res) {
