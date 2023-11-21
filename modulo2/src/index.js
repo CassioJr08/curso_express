@@ -8,12 +8,22 @@ app.use(express.json());
 
 const projects = [];
 
+function logRoutes(request, response, next){
+    console.log(request);
+    const { method, url } = request;
+    const route = `[${method.toUpperCase()}] ${url}`
+    console.log(route);
+    return next();
+}
+
+//app.use(logRoutes)
+
 
 app.get('/projects', function(req, res) {
     return res.json(projects);
 });
 
-app.post('/projects', function(req, res) {
+app.post('/projects', logRoutes, function(req, res) {
     const {name, owner} = req.body;
     const project = {
         id: uuidv4(),
