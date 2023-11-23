@@ -1,3 +1,4 @@
+import 'dotenv/config' //variaveis de ambiente
 import express, {Request, Response} from "express"
 import 'express-async-errors'
 import cors from 'cors'
@@ -10,8 +11,8 @@ app.get('/', (req: Request, res: Response) => {
     return res.json({message: 'Olá Dev!'})
 })
 
-app.listen(3000, () => {
-    console.log('Server started on port 3000!')
+app.listen(process.env.PORT, () => {
+    console.log(`Server started on port ${process.env.PORT}`)
 })
 
 
