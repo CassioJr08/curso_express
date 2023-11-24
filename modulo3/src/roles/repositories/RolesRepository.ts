@@ -12,6 +12,7 @@ export class RolesRepository {
     }
 
     create({ name }: CreateRoleDTO): Role {
+        
         const role =  new Role()
         Object.assign(role, {  // esse metodo é usado para mesclar propriedades
         name,
@@ -25,5 +26,9 @@ export class RolesRepository {
 
     findAll(): Role[] {
         return this.roles
+    }
+
+    findByName(name: string): Role | undefined{
+        return this.roles.find(role => role.name.toUpperCase() === name.toUpperCase())
     }
 }
