@@ -11,7 +11,7 @@ export class RolesRepository {
         this.roles = []
     }
 
-    create({ name }: CreateRoleDTO) {
+    create({ name }: CreateRoleDTO): Role {
         const role =  new Role()
         Object.assign(role, {  // esse metodo é usado para mesclar propriedades
         name,
@@ -19,7 +19,11 @@ export class RolesRepository {
    })
 
         //console.log(role)
-    this.roles.push(role)
-    return role
+        this.roles.push(role)
+        return role
+    }
+
+    findAll(): Role[] {
+        return this.roles
     }
 }
