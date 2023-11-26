@@ -8,3 +8,4 @@ export class ListRolesUseCase{
         return this.rolesRepository.findAll()
     }
 }
+
