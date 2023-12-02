@@ -6,27 +6,53 @@ import { updateRolesController } from "@roles/useCases/updateRole"
 
 import { Router, Request, Response } from "express"
 
+import { celebrate, Joi, Segments } from 'celebrate'
+
 const rolesRoute = Router()
 
-rolesRoute.post('/', (req: Request, res: Response) =>{
+rolesRoute.post('/', celebrate({
+    [Segments.BODY]: Joi.object().keys({
+        name: Joi.string().required()
+    })
+}) , (req: Request, res: Response) =>{
 
     return createRolesController.handle(req, res)
 
 })
 
-rolesRoute.get('/', (req: Request, res: Response) =>{
+rolesRoute.get('/', celebrate({
+    [Segments.QUERY]: Joi.object().keys({
+        page: Joi.number(),
+        limit: Joi.number()
+    })
+}), (req: Request, res: Response) =>{
     return listRolesController.handle(req, res)
 })
 
-rolesRoute.get('/:id', (req: Request, res: Response) =>{
+rolesRoute.get('/:id', celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+        id: Joi.string().uuid().required(),
+    })
+}), (req: Request, res: Response) =>{
     return showRolesController.handle(req, res)
 })
 
-rolesRoute.put('/:id', (req: Request, res: Response) =>{
+rolesRoute.put('/:id', celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+        id: Joi.string().uuid().required(),
+    }),
+    [Segments.BODY]: Joi.object().keys({
+        name: Joi.string().required()
+    })
+}), (req: Request, res: Response) =>{
     return updateRolesController.handle(req, res)
 })
 
-rolesRoute.delete('/:id', (req: Request, res: Response) =>{
+rolesRoute.delete('/:id', celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+        id: Joi.string().uuid().required(),
+    })
+}), (req: Request, res: Response) =>{
     return deleteRolesController.handle(req, res)
 })
 
