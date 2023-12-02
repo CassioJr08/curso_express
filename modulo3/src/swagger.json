@@ -60,9 +60,54 @@
                 "tags": ["Role"],
                 "summary": "List all roles",
                 "description": "Returns all roles paginated.",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Number of the page",
+                        "required": false,
+                        "schema": {
+                            "type": "number",
+                            "example": "page=1"
+                        },
+                        "style": "label"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Number of register per page",
+                        "required": false,
+                        "schema": {
+                            "type": "number",
+                            "example": "limit=15"
+                        },
+                        "style": "label"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Sucess."
+                        "description": "Sucess.",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "per_page": 15,
+                                    "total": 2,
+                                    "current_page": 1,
+                                    "data": [
+                                        {
+                                            "id": "e4c0cbbf-7e07-4db1-8861-d4d42e0e5884",
+                                            "name": "Users",
+                                            "created_at": "2023-11-30T21:13:33.000Z"
+                                        },
+                                        {
+                                            "id": "4b985de8-1ec2-4fe1-9a75-94949f502edf",
+                                            "name": "Admin",
+                                            "created_at": "2023-12-02T00:15:05.000Z"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
                     }
                 }
             }
