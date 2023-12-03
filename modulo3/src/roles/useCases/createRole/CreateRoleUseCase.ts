@@ -1,13 +1,18 @@
 import { Role } from "@roles/entities/Role"
+import { IRolesRepository } from "@roles/repositories/IRolesRepository"
 import { RolesRepository } from "@roles/repositories/RolesRepository"
 import { AppError } from "src/shared/errors/AppError"
+import { injectable, inject } from 'tsyringe'
 
 type CreateRoleDTO = {
     name: string
 }
 
+@injectable()
 export class CreateRoleUseCase {
-    constructor(private rolesRepository: RolesRepository){}
+    constructor(
+        @inject('RolesRepository')
+        private rolesRepository: IRolesRepository){}//forma simplificada de criar uma propriedade
 
         async execute({ name }: CreateRoleDTO): Promise<Role> {
             const roleAreadyExists = await this.rolesRepository.findByName(name)

@@ -57,7 +57,7 @@
                 }
             },
             "get": {
-                "tags": ["Role"],
+                "tags": ["Roles"],
                 "summary": "List all roles",
                 "description": "Returns all roles paginated.",
                 "parameters": [
