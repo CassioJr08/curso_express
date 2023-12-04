@@ -1,4 +1,5 @@
 import { Role } from '@roles/entities/Role'
+import { Exclude } from 'class-transformer'
 import {
   Column,
   CreateDateColumn,
@@ -12,14 +13,20 @@ import { v4 as uuidv4 } from 'uuid'
 export class User {
   @PrimaryColumn()
   id?: string
+
   @Column()
   name: string
+
   @Column()
   email: string
+
   @Column()
+  @Exclude()
   password: string
+
   @Column()
   isAdmin: boolean
+
   @Column()
   avatar?: string
 
