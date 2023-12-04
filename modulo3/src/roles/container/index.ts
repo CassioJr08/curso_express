@@ -9,8 +9,8 @@ import { container } from  'tsyringe'
 
 container.registerSingleton<IRolesRepository>('RolesRepository', RolesRepository)
 
-// container.registerSingleton('CreateRoleController', CreateRoleController)
-// container.registerSingleton('ListRolesController', ListRolesController)
-// container.registerSingleton('ShowRoleController', ShowRoleController)
-// container.registerSingleton('UpdateRoleController', UpdateRoleController)
-// container.registerSingleton('DeleteRoleController', DeleteRoleController)
+container.registerSingleton('CreateRoleController', CreateRoleController)
+container.registerSingleton('ListRolesController', ListRolesController)
+container.registerSingleton('ShowRoleController', ShowRoleController)
+container.registerSingleton('UpdateRoleController', UpdateRoleController)
+container.registerSingleton('DeleteRoleController', DeleteRoleController)
