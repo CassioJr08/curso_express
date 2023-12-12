@@ -3,6 +3,10 @@ import { AppError } from "../errors/AppError";
 import { Secret, verify } from "jsonwebtoken";
 import authConfig from '@config/auth'
 
+type JwtPaiLoadProps = {
+    sub: string
+}
+
 export const isAuthenticated = (
     request: Request, response: Response, next: NextFunction
 ) => {
@@ -14,7 +18,9 @@ export const isAuthenticated = (
     const token = authHeader.replace('Bearer ', '')
 
     try{
-        verify(token, authConfig.jwt.secret as Secret)
+        const decodedToken = verify(token, authConfig.jwt.secret as Secret)
+        const { sub } = decodedToken as JwtPaiLoadProps
+        request.user = { id: sub }
         next()
     } catch {
         throw new AppError('Inavlid authentication token', 401)
