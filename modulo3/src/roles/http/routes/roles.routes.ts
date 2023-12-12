@@ -8,6 +8,7 @@ import { UpdateRoleController } from "@roles/useCases/updateRole/UpdateRoleContr
 import { ShowRoleController } from "@roles/useCases/showRole/ShowRoleController"
 import { DeleteRoleController } from "@roles/useCases/deleteRole/DeleteRoleController"
 import { container } from 'tsyringe'
+import { isAuthenticated } from "src/shared/middlewares/isAuthenticated"
 
 const rolesRoute = Router()
 const createRolesController = container.resolve(CreateRoleController)
@@ -15,6 +16,8 @@ const listRolesController = container.resolve(ListRolesController)
 const updateRolesController = container.resolve(UpdateRoleController)
 const showRolesController = container.resolve(ShowRoleController)
 const deleteRolesController = container.resolve(DeleteRoleController)
+
+rolesRoute.use(isAuthenticated)
 
 rolesRoute.post('/', celebrate({
     [Segments.BODY]: Joi.object().keys({

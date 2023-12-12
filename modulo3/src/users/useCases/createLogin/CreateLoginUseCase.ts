@@ -42,7 +42,8 @@ type IResponse = {
         expiresIn: jwtConfig.jwt.expiresIn
       })
       return {
-        user, token
+        user, 
+        token
       }
       
     }
