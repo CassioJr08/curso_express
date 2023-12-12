@@ -40,7 +40,10 @@ type IResponse = {
       const token = sign({}, jwtConfig.jwt.secret, {
         subject: user.id,
         expiresIn: jwtConfig.jwt.expiresIn
-      } )
+      })
+      return {
+        user, token
+      }
       
     }
 }
